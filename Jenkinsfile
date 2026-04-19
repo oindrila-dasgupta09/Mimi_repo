@@ -1,17 +1,40 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = "oindriladasgupta09/mimi-app"
+        DOCKER_TAG = "latest"
+    }
+
     stages {
-        stage('Clone') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Cloning repo...'
+                script {
+                    docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                }
             }
         }
 
-        stage('Build') {
+        stage('Login to DockerHub') {
             steps {
-                echo 'Building app...'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'USER',
+                    passwordVariable: 'PASS'
+                )]) {
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                }
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                script {
+                    docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
+                }
             }
         }
     }
+}
 }
