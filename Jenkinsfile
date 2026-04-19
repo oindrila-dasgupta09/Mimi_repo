@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "yourusername/app-name"
+        DOCKER_IMAGE = "oindriladasgupta9/mimi-app"
         DOCKER_TAG = "latest"
     }
 
@@ -10,7 +10,7 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/your-username/your-repo.git'
+                git 'https://github.com/oindrila-dasgupta09/Mimi_repo.git'
             }
         }
 
