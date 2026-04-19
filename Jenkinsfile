@@ -6,13 +6,6 @@ pipeline {
         DOCKER_TAG = "latest"
     }
 
-    stages {
-
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/oindrila-dasgupta09/Mimi_repo.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
