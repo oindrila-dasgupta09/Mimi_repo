@@ -2,11 +2,17 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "oindriladasgupta09/mimi-app"
+        DOCKER_IMAGE = "yourusername/app-name"
         DOCKER_TAG = "latest"
     }
 
     stages {
+
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
